@@ -1,5 +1,5 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set nocompatible             
+set nocompatible
 filetype off  
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -52,6 +52,11 @@ Plug 'vim-airline/vim-airline'
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 Plug 'ctrlpvim/ctrlp.vim'
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"GO development plugin.
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries'  }
+
 call plug#end()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -78,23 +83,13 @@ set encoding=utf-8
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Color Scheme
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-color dracula
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Mapping f8 for c++ compiling and executing
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-map <F8> :!g++ % && ./a.out <CR>
+color badwolf 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Setting Tab and indent Widths
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set tabstop=4 softtabstop=0 expandtab shiftwidth=2 smarttab
-set smarttab
-set expandtab
+set tabstop=8 softtabstop=0 expandtab shiftwidth=8 smarttab
 set title
-set autoindent
-set smartindent
-set backspace=indent,eol,start
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Highlight search results
@@ -205,6 +200,11 @@ noremap <silent> <c-j> :call <SID>swap_down()<CR>
 :command Q q
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Autocmd to leave NERDTree without buffer
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " This unsets the "last search pattern" register by hitting return
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nnoremap <CR> :noh<CR><CR>
@@ -215,14 +215,24 @@ nnoremap <CR> :noh<CR><CR>
 map <C-n> :NERDTreeToggle<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Toggle NERDTree file explorer
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+map <leader>b :CtrlP
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Always show the statusbar
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set laststatus=2
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Enable the list of buffers
+" Vim-Go Syntax Highlighting 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:airline#extensions#tabline#enabled = 1
+let g:go_highlight_types = 1
+let g:go_highlight_fields = 1
+" let g:go_highlight_functions = 1
+" let g:go_highlight_methods = 1
+let g:go_highlight_operators = 1
+"let g:go_highlight_extra_types = 1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Show just the filename
